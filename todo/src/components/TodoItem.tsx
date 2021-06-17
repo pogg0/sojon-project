@@ -1,27 +1,20 @@
 import React from "react";
+import { isConstructorDeclaration } from "typescript";
 
 interface TodoItemProps {
   name: string;
 }
 
-function checkevent(isChecked : boolean){
-  if(isChecked) {
-    return(
-      <div style={{display:'inline', textDecoration:'line-through'}} onChange={(v)=>checkevent(v)}>{props.name}</div>
-    )
-  }
-  else return(
-    <div style={{display:'inline'}} onChange={(v)=>checkevent(v)}>{props.name}</div>
-  )
-}
-
-function TodoItem(props: TodoItemProps) {
+function TodoItem(this: any, props: TodoItemProps) {
   return(
     <div>
-      <input type="checkbox"/>
-      <div style={{display:'inline'}} onChange={(v)=>checkevent(v)}>{props.name}</div>
+      <form >
+        <input type="checkbox" checked={this.state.checked} onChange={this.checkevent}/>
+        <div style={{display:'inline'}}>{props.name}</div>
+        </form>
     </div>
   )
 }
+
 
 export default TodoItem;
